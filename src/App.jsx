@@ -8,6 +8,8 @@ import Footer from "./components/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from "./components/Navbar";
 import Product from "./pages/Product";
+//import 'react-toastify/dist/ReactToastify.css'; 
+
 function App() {
   
 

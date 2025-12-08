@@ -1,8 +1,9 @@
 
-import { Figure, Button} from "react-bootstrap"
+import { Figure, Button, Row, Col} from "react-bootstrap"
 import '../css/style.css'
 import axios from 'axios';
 import { useState, useEffect } from "react";
+//import { toast } from "react-toastify";
 
 export default function Product(){
 
@@ -27,24 +28,43 @@ export default function Product(){
 
     },[])
 
+    const HandleAddtoCart=(data)=>{
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(data);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Product successfully add into cart");
+      //toast.success("successful");
+
+    }
+
     return(
+      <div className="container3">
         
-    <div>
-    <Figure className="container1">
-      <Figure.Image
-        width={290}
-        height={150}
-        alt="product"
-        src=""
-      />
-      <div className="container2">
-        <h2>ID:{data.id}</h2>
-      <h3>Product Name:{data.title}</h3>    
-       <p>Price Rs.:{data.count}</p>
-      <Button>Add to Cart</Button>
+          {
+          data.map(user=>(
+            <Row key={user.id} className="container1">
+             <Col> <Figure.Image
+                 width={190}
+                 height={150}
+                 alt="product"
+                src={user.image}
+              />
+              <h6>{user.title}</h6>
+              <p>{user.description}</p>
+              <h6> Rs.{user.price}</h6>
+              <Button  onClick={()=>HandleAddtoCart(data)}>Add to Cart</Button> 
+              </Col>
+            </Row>
+
+          )
+        )}
+        
       </div>
-    </Figure>
-    </div>
+    
         
     )
 }
+
+
+
+
