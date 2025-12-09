@@ -1,6 +1,7 @@
 
 
 import { Button, Container, Form, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 export default function Header(){
     return( 
      <div>
@@ -9,7 +10,8 @@ export default function Header(){
         <Container>
             <Navbar.Brand href='#'>Shopee</Navbar.Brand>
             <Nav className="me-auto">
-            <Nav.Link href="#">Login</Nav.Link>
+            <NavLink to="/product">Product</NavLink>
+            <NavLink to="/cart">Cart</NavLink>
             <Nav.Link href="#">Wishlist</Nav.Link>
             <Nav.Link href="#">Become Seller</Nav.Link>
           </Nav> 
