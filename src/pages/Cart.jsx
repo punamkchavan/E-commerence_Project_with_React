@@ -1,5 +1,5 @@
 import { useState, useEffect} from "react";
-import { Button } from "react-bootstrap";
+import { Button} from "react-bootstrap";
 
 export default function Cart(){
    const [cart, setCart]=useState(()=>{
@@ -50,24 +50,38 @@ const decreaseQty = (id) => {
  
 
     return(
-        <>
-       
-        <h1>My Cart</h1>
-        
-        <h2>Cart is Empty</h2>
+      <div className="text-center">
+        <h1 className="text-3xl font-bold p-2">My Cart</h1><hr className="p-2" />
+      <h2>Cart is Empty</h2>
       
-        <Button onClick={decreaseQty}>-</Button>
+        <div className="flex justify-center items-centertext-center">
+     
+       <table class="hover:table-auto center ">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Amount</th>
+      <th>Quantity</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+     <tr>
+      <td>Image</td>
+      <td>Price</td>
+      <td><Button onClick={decreaseQty}>-</Button>
         <span>Quatity:</span>
-        <Button onClick={increaseQty}>+</Button>
-             
+        <Button onClick={increaseQty}>+</Button></td>
+      <td><Button variant="danger" onClick={remove}>Remove</Button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div >
+  </div>
+<h2>Total: ₹ {total}</h2>
 
-        <Button variant="danger" onClick={remove}>Remove</Button>
          
-        
-      <h2>Total: ₹ {total}</h2>
-
-        
-       
-        </>
+         </div>
     )
 }

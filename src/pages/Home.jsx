@@ -1,42 +1,22 @@
-import { Button, Card, Col,Row } from "react-bootstrap"
+import { Link } from "react-router-dom";
+
 
 
 export default function Home(){
     return(
-        <>
-        <h1>Welcome to Shopee</h1>
-        <Button variant="primary">Shop Now</Button>
-        <Card>
-            <Card.Img variant="top" src=" " />
-            <Card.Body>
-              <Card.Title>Card title</Card.Title>
-              <Card.Text>
-                This is a longer card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <br/>
-          <div>
-            <Row xs={1} md={2} className="g-4">
-      {Array.from({ length: 4 }).map((_, idx) => (
-        <Col key={idx}>
-          <Card>
-            <Card.Img variant="top" src=" " />
-            <Card.Body>
-             <h2>Product Name</h2>
-             <p>Price Rs.</p>
-             <Button className="btn">
-              Add to Cart
-            </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      ))}
-    </Row>
-    < br />
+        <div>
+        <marquee>
+        <h1 className="font-bold text-5xl p-3">Welcome to Shopee</h1>
+        </marquee>
+        <Link to="/product">
+        <button className="bg-lime-500 p-2.5 w-35 font-bold text-stone-950 
+        ... ring ring-lime-500 ring-offset-4  hover:bg-lime-400 rounded-md ... ml-4 ..." >Shop Now</button>
+        </Link>
+          <div className="p-3 ">
+            <h1></h1>
           </div>
-        </>
+        </div>
+      
+        
     )
 }
