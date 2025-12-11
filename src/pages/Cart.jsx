@@ -59,7 +59,7 @@ const decreaseQty = (id) => {
        <table class="hover:table-auto center ">
   <thead>
     <tr>
-      <th>Image</th>
+      <th>Product</th>
       <th>Amount</th>
       <th>Quantity</th>
       <th>Remove</th>
