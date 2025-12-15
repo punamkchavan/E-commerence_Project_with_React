@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from "./components/Navbar";
 //import 'react-toastify/dist/ReactToastify.css'; 
 import Cart from "./pages/Cart";
-import Wishlist from "./pages/Wishlist";
+import Wishlist from "./pages/DemoWishlist";
 
 
 function App() {
@@ -19,8 +19,9 @@ function App() {
     <Header />
     <Routes>
       <Route path="/" element={<Home />} /> 
-      <Route path="wishlist" element={<Wishlist />}/>
+      {/* <Route path="wishlist" element={<Wishlist />}/> */}
       <Route path="cart" element={<Cart />} />
+      <Route path="wish" element={<Wishlist />} />
     </Routes>
     <Footer />
     </BrowserRouter>

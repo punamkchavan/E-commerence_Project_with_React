@@ -1,87 +1,64 @@
-import { useState, useEffect} from "react";
-import { Button} from "react-bootstrap";
+import { useEffect, useState } from "react";
 
-export default function Cart(){
-   const [cart, setCart]=useState(()=>{
-     return JSON.parse(localStorage.getItem("cart")) || [];
+export default function Cart() {
+  const [cart, setCart] = useState([]);
 
-});
- useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(data);
+    console.log(data)
+  }, []);
 
- const increaseQty = (id) => {
-  const updateCart = cart.map(item => {
-    if (item.id === id) {
-      return {
-        ...item,
-        qty: item.qty + 1
-      };
-    }
-    else {
-      return item;
-    }
-  });
-  setCart(updateCart);
-};
+  return (
+    
+    <div className="p-6">
+<h1 className="text-2xl font-bold mb-4">Your Cart</h1>
 
-const decreaseQty = (id) => {
-  const updateCart = cart.map(item => {
-    if (item.id === id && item.qty > 1) {
-      return {
-        ...item,
-        qty: item.qty - 1
-      };
-    }
-    else {
-      return item;
-    }
-  });
-  setCart(updateCart);
-};
 
-  const remove = (id) => {
-    setCart(cart.filter(item => item.id !== id));
-  };
-
-  const total = cart.reduce(
-    (sum, item) => sum + item.qty * item.price * 80, 0
-  );
- 
-
-    return(
-      <div className="text-center">
-        <h1 className="text-3xl font-bold p-2">My Cart</h1><hr className="p-2" />
-      <h2>Cart is Empty</h2>
-      
-        <div className="flex justify-center items-centertext-center">
-     
-       <table class="hover:table-auto center ">
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Amount</th>
-      <th>Quantity</th>
-      <th>Remove</th>
-    </tr>
-  </thead>
-  <tbody>
-     <tr>
-      <td>Image</td>
-      <td>Price</td>
-      <td><Button onClick={decreaseQty}>-</Button>
-        <span>Quatity:</span>
-        <Button onClick={increaseQty}>+</Button></td>
-      <td><Button variant="danger" onClick={remove}>Remove</Button></td>
-    </tr>
-  </tbody>
+{cart.length === 0 ? (
+<h2>Cart is Empty</h2>
+) : (
+<div className="overflow-x-auto">
+<table className="w-full border border-collapse">
+<thead className="bg-gray-100">
+<tr>
+<th className="border p-2">Image</th>
+<th className="border p-2">Product</th>
+<th className="border p-2">Price</th>
+<th className="border p-2">Quantity</th>
+<th className="border p-2">Subtotal</th>
+<th className="border p-2">Action</th>
+</tr>
+</thead>
+<tbody>
+{cart.map(item => (
+<tr key={item.id} className="text-center">
+<td className="border p-2">
+<img src={item.image} alt={item.title} className="w-16 mx-auto" />
+</td>
+<td className="border p-2">{item.title}</td>
+<td className="border p-2">₹ {item.price}</td>
+<td className="border p-2">
+<button  className="px-2 border">-</button>
+<span className="mx-2">{item.qty}</span>
+<button className="px-2 border">+</button>
+</td>
+<td className="border p-2">₹ {item.price * item.qty}</td>
+<td className="border p-2">
+<button className="text-red-500">Remove</button>
+</td>
+</tr>
+))}
+</tbody>
 </table>
-</div>
-<div >
-  </div>
-<h2>Total: ₹ {total}</h2>
 
-         
-         </div>
-    )
-}
+
+<h2 className="text-xl font-bold mt-4 text-right">Total: ₹ </h2>
+</div>
+)}
+</div>
+
+)}
+
+  
+

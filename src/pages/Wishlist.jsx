@@ -5,7 +5,7 @@ export default function Wishlist(){
     return(
 
  <div className="text-center">
-        <h1 className="text-3xl font-bold p-2">WishList</h1><hr />
+      <h1 className="text-3xl font-bold p-2">WishList</h1><hr />
       <h2>Cart is Empty</h2>
       
         <div className="flex justify-center items-centertext-center">
