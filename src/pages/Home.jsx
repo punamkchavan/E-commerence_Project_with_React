@@ -2,6 +2,7 @@
 import '../css/style.css'
 import axios from 'axios';
 import { useState, useEffect } from "react";
+import Header from '../components/Navbar';
 
 export default function Home(){
 
@@ -74,6 +75,7 @@ export default function Home(){
   
   </div>
 </div> 
+<Header data={data} />
 
         
         </div>

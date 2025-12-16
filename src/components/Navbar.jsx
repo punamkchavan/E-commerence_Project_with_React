@@ -1,16 +1,9 @@
 import { useState } from 'react';
-
 import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap';
-export default function Header({ setSearch }){
-   const [text, setText] = useState("");
-   const handleSubmit = (e) => {
-    e.preventDefault();
+export default function Header(){
 
-    if (setSearch) {
-      setSearch(text);
-    }
-  };
 
+   
     return( 
      <div>
 
@@ -32,17 +25,26 @@ export default function Header({ setSearch }){
         </svg>
             
           </Nav> 
-               <Form className="d-flex" onSubmit={handleSubmit}>
-                  <Form.Control
-                    type="search"
-                    placeholder="Search"
-                    className="me-2"
-                    aria-label="Search"
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}/>
-                    
-                  <Button type="submit" variant="outline-success">Search</Button>
-                </Form>
+ <Form onSubmit={(e) => e.preventDefault()}>
+  <input
+    type="text"
+    placeholder="search products"
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className='me-auto p-2'
+  />
+
+  <Button type="submit">Search</Button>
+
+  {data
+    .filter(item =>
+      item.title.toLowerCase().includes(search.toLowerCase())
+    )
+    .map(item => (
+      <h4 key={item.id}>{item.title}</h4>
+    ))
+  }
+</Form>
                
 
                 
