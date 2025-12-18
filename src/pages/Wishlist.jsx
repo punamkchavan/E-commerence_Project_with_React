@@ -1,39 +1,47 @@
+import { useEffect, useState } from "react";
 
-import { Button} from "react-bootstrap"
-export default function Wishlist(){
+export default function Wishlist() {
 
-    return(
+  const [wishlist, setWishlist] = useState([]);
 
- <div className="text-center">
-      <h1 className="text-3xl font-bold p-2">WishList</h1><hr />
-      <h2>Cart is Empty</h2>
-      
-        <div className="flex justify-center items-centertext-center">
-     
-       <table className="hover:table-auto center ">
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Amount</th>
-      <th>Quantity</th>
-      <th>Add to cart</th>
-      <th>Remove</th>
-    </tr>
-  </thead>
-  <tbody>
-     <tr>
-      <td>Image</td>
-      <td>Price</td>
-      <td><Button>-</Button>
-        <span>Quatity:</span>
-        <Button>+</Button></td>
-        <td><Button variant="danger">Add to cart</Button></td>
-      <td><Button variant="danger">Remove</Button></td>
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("wishlist")) || [];
+    setWishlist(data);
+  }, []);
 
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
- 
-  )}
+  const removeFromWishlist = (id) => {
+    const updated = wishlist.filter(item => item.id !== id);
+    setWishlist(updated);
+    localStorage.setItem("wishlist", JSON.stringify(updated));
+  };
+
+  return (
+    <div className="p-6">
+      <h1 className="text-3xl font-bold mb-4">My Wishlist ❤️</h1>
+
+      {wishlist.length === 0 ? (
+        <h2>Wishlist is Empty</h2>
+      ) : (
+        wishlist.map(item => (
+          <div
+            key={item.id}
+            className="flex items-center gap-4 mb-4 p-4 bg-lime-100 rounded"
+          >
+            <img src={item.image} width={80} />
+            <div>
+              <h6 className="font-semibold">{item.title}</h6>
+              <p>₹ {item.price}</p>
+            </div>
+
+            <button
+              onClick={() => removeFromWishlist(item.id)}
+              className="ml-auto bg-red-500 text-white px-3 py-1 rounded"
+            >
+              Remove
+            </button>
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
