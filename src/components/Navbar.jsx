@@ -1,6 +1,6 @@
 import { useContext, useState} from 'react';
 import { SearchContext } from '../context/SearchContext';
-import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap';
+import {  Container, Nav, Navbar } from 'react-bootstrap';
 export default function Header(){
   const { search, setSearch } = useContext(SearchContext);
    const [input, setInput] = useState("");
@@ -21,7 +21,7 @@ export default function Header(){
             <Navbar.Brand><h1 className='font-black  font-sans drop-shadow-lg ...'>Shopee</h1></Navbar.Brand>
             <Nav className="me-auto p-2">
               <Nav.Link href="/">Home</Nav.Link>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="currentcolor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-7 h-7 text-lime-500 mt-1.5 ...">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentcolor" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-7 h-7  text-lime-500 mt-1.5 ...">
               <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
               </svg>
             <Nav.Link href="/cart">MyCart</Nav.Link>
@@ -34,18 +34,26 @@ export default function Header(){
         </svg>
             
           </Nav> 
- <Form onSubmit={handleSearch}>
-  <input
-    type="text"
-    placeholder="search products"
-    value={input}
-    onChange={(e) => setInput(e.target.value)}
-    className='me-auto p-2'
-  />
-
-  <Button type="submit">Search</Button>
-</Form>
-               
+ 
+             <form className="flex items-center w-full max-w-lg mx-auto p-4" onSubmit={handleSearch}>
+    <div className="relative flex-grow">
+     
+        <input type="text" placeholder="Search..."
+               className="w-full py-2 pl-4 pr-10 text-gray-800 bg-white border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-lime-600 focus:border-lime-600"
+               value={input}
+    onChange={(e) => setInput(e.target.value)} />
+        
+       
+        <button type="submit"
+                className="absolute right-0 top-0 h-full px-4 text-white bg-lime-500 rounded-r-lg hover:bg-lime-600 focus:outline-none focus:ring-2 focus:ring-lime-600">
+           
+            <svg xmlns="www.w3.org" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+        </button>
+    </div>
+</form>
+  
 
                 
         </Container>

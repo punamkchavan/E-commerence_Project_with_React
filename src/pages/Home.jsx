@@ -9,11 +9,6 @@ export default function Home(){
 
     const [data,setData]=useState([]);
     const { search } = useContext(SearchContext);
-    const [liked, setLiked] = useState(false);
-
-  
- 
-
 
     const API="https://fakestoreapi.com/products"
 
@@ -33,6 +28,10 @@ export default function Home(){
          FetchData();
 
     },[])
+    
+    const filteredData = data.filter((item) =>
+  item.title.toLowerCase().includes(search.toLowerCase())
+);
 
     const HandleAddtoCart=(data)=>{
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -40,24 +39,27 @@ export default function Home(){
       localStorage.setItem("cart", JSON.stringify(cart));
       alert("Product successfully add into cart");
     }
-    const filteredData = data.filter((item) =>
-  item.title.toLowerCase().includes(search.toLowerCase())
-);
-
-  const HandleAddtoWishlist = (product) => {
+    
+  const toggleWishlist = (product) => {
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
   const exists = wishlist.find(item => item.id === product.id);
 
-  if (!exists) {
+  if (exists) {
+    
+    wishlist = wishlist.filter(item => item.id !== product.id);
+  } else {
+   
     wishlist.push(product);
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-    alert("Product added to Wishlist ❤️");
+    alert("Product successfully add into wishlist");
   }
-};   
-const handleClick = () => {
-    setLiked(!liked);              // toggle fill
-    HandleAddtoWishlist(user);}
+
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+};  
+const isWishlisted = (id) => {
+  const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  return wishlist.some(item => item.id === id);
+};
 
     return(
       
@@ -85,48 +87,22 @@ const handleClick = () => {
         <div className="flex justify-start ... gap-10">
       
     
-        {/* <svg 
-  onClick={() =>
-    wishlist.some((item) => item.id === user.id)
-      ? removeFromWishlist(user.id)
-      : addToWishlist(user)
-  }
-  xmlns="http://www.w3.org/2000/svg"
-  fill={wishlist.some((item) => item.id === user.id) ? "red" : "none"}
-  viewBox="0 0 24 24"
-  strokeWidth="1.5"
-  stroke="currentColor"
-  className="w-10 h-10 cursor-pointer"
->
-  <path
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-  />
-</svg> */}
+ 
+
 <button
           onClick={() => HandleAddtoCart(user)}
          className="bg-blue-600 hover:bg-blue-800 text-white py-2 px-4 rounded-lg">
         Add to Cart
         </button>
-        {/* <svg
-  onClick={() => HandleAddtoWishlist(user)}
-  xmlns="http://www.w3.org/2000/svg"
-  fill="none"
-  viewBox="0 0 24 24"
-  strokeWidth="1.5"
-  stroke="currentColor"
-  className="w-12 h-12 text-pink-600 cursor-pointer hover:scale-110 transition"
+        
+        <button
+  onClick={() => toggleWishlist(user)}
+  className={`bg-lime-600 hover:bg-lime-800 py-2 px-4 rounded-lg ${
+    isWishlisted(user.id) ? "text-black-500" : "text-gray-100"
+  }`}
 >
-  <path
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-  />
-</svg>   */}
-<svg onClick={handleClick} xmlns="www.w3.org" fill={liked ? "currentColor" : "none"}  viewBox="0 0 24 24"  strokeWidth="1.5" stroke="currentColor" className="w-12 h-12 text-lime-500">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-        </svg>
+  Wishlist
+</button>
 
 
         </div>
